@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour{
 
-    public GameObject audioEffect;
+    public GameObject audioEffect_jump;
+    public GameObject audioEffect_coin;
+
+    int coins = 0;
 
     // Start is called before the first frame update
     void Start(){
-        audioEffect = GameObject.Find("JumpSound");
+        audioEffect_jump = GameObject.Find("JumpSound");
+        audioEffect_coin = GameObject.Find("CoinSound");
     }
 
     // Update is called once per frame
@@ -17,6 +21,14 @@ public class GameManager : MonoBehaviour{
     }
 
     public void sound_jump(){
-        audioEffect.GetComponent<AudioSource>().Play();
+        audioEffect_jump.GetComponent<AudioSource>().Play();
+    }
+
+    public void sound_coin(){
+        audioEffect_coin.GetComponent<AudioSource>().Play();
+    }
+
+    public void addCoins(){
+        coins++;
     }
 }

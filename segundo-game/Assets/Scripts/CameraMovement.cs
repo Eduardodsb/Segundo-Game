@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour{
 
-    public Transform transform;
+    public Transform trans;
    public GameObject player;
    Vector3 positionCam;
 
@@ -18,6 +18,6 @@ public class CameraMovement : MonoBehaviour{
         positionCam.x = player.GetComponent<Transform>().position.x;
         positionCam.y = transform.position.y;
         positionCam.z = -10;
-        transform.position = positionCam;
+        trans.position = positionCam;
     }
 }

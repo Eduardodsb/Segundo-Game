@@ -57,7 +57,6 @@ public class PlayerMovement : MonoBehaviour{
         
         if (collision.collider.tag == "Ground"){
             this.collision = true;
-            Debug.Log("Ground");
             animator.SetBool("Down", false);
             animator.SetBool("Up", false);
         }

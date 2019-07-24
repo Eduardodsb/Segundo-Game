@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour{
     public float runSpeed = 40f;
     public Animator animator;
     public Rigidbody2D rb;
+    public GameManager gameManager;
 
     bool  collision = false;
     float horizontalMove = 0;
@@ -26,8 +27,8 @@ public class PlayerMovement : MonoBehaviour{
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
         if (Input.GetButtonDown("Jump")){
+            gameManager.sound_jump();
             jump = true;
-            //animator.SetBool("IsJumping", true);
         }
 
         if (Input.GetButtonDown("Crouch")){
@@ -37,11 +38,6 @@ public class PlayerMovement : MonoBehaviour{
         }
     }
     
-    public void OnLanding(){
-       
-        //animator.SetBool("IsJumping", false);
-    }
-
     void FixedUpdate(){
         if (rb.velocity.y > 0.0 && !collision){
             animator.SetBool("Up", true);

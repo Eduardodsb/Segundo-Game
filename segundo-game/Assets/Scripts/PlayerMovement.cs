@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour{
     public float runSpeed = 40f;
     public Animator animator;
     public Rigidbody2D rb;
-    public GameManager gameManager;
+    GameManager gameManager;
 
     bool  collision = false;
     float horizontalMove = 0;
@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour{
 
     // Start is called before the first frame update
     void Start(){
+        gameManager = FindObjectOfType<GameManager>();
         
     }
 
@@ -38,6 +39,7 @@ public class PlayerMovement : MonoBehaviour{
         }
 
         if (rb.position.y < -9.0){
+            animator.SetBool("GameOver", true);
             gameManager.gameOver();
         }
 
@@ -65,6 +67,12 @@ public class PlayerMovement : MonoBehaviour{
             animator.SetBool("Down", false);
             animator.SetBool("Up", false);
         }
+
+        if (collision.collider.tag == "Enemy"){
+            animator.SetBool("GameOver", true);
+            gameManager.gameOver();
+        }
+
     }
 
     private void OnCollisionExit2D(Collision2D collision){

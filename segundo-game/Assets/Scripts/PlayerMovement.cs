@@ -36,6 +36,11 @@ public class PlayerMovement : MonoBehaviour{
         }else if(Input.GetButtonUp("Crouch")){
             crouch = false;
         }
+
+        if (rb.position.y < -9.0){
+            gameManager.gameOver();
+        }
+
     }
     
     void FixedUpdate(){

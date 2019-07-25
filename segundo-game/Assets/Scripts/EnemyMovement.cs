@@ -18,7 +18,6 @@ public class EnemyMovement : MonoBehaviour {
       
         if (Mace.position.y > -0.5){
             rb.velocity = -velocidade;
-            Debug.Log("oie");
         }
         else if (Mace.position.y <= -6.5){
             rb.velocity = velocidade;

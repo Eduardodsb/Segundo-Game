@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour {
 
-    public Transform Mace;
-    public Rigidbody2D rb;
     public Vector2 velocidade;
-    public float MaxHeight;
-    public float MinHeight;
+    public bool motionX;
+    public bool motionY;
+    public float maxY;
+    public float minY;
+    public float maxX;
+    public float minX;
 
     GameManager gameManager;
 
@@ -20,13 +22,18 @@ public class EnemyMovement : MonoBehaviour {
     // Update is called once per frame
     void Update(){
       
-        if (Mace.position.y > MaxHeight)
-        {
-            rb.velocity = -velocidade;
+        if ((gameObject.GetComponent<Transform>().position.y > maxY) && motionY){
+            gameObject.GetComponent<Rigidbody2D>().velocity = -velocidade;
         }
-        else if (Mace.position.y <= MinHeight)
-        {
-            rb.velocity = velocidade;
+        else if ((gameObject.GetComponent<Transform>().position.y <= minY) && motionY){
+            gameObject.GetComponent<Rigidbody2D>().velocity = velocidade;
+        }
+
+        if ((gameObject.GetComponent<Transform>().position.x > maxX) && motionX){
+            gameObject.GetComponent<Rigidbody2D>().velocity = -velocidade;
+        }
+        else if ((gameObject.GetComponent<Transform>().position.x <= minX) && motionX){
+            gameObject.GetComponent<Rigidbody2D>().velocity = velocidade;
         }
     }
 }

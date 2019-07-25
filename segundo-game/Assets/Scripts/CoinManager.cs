@@ -16,11 +16,12 @@ public class CoinManager : MonoBehaviour{
         
     }
 
-
-    public void OnTriggerEnter2D(){
-        gameManager.sound_coin();
-        gameObject.SetActive(false);
-        gameManager.addCoins();
+    public void OnTriggerEnter2D(Collider2D collision){
+        if (collision.CompareTag("Player")) {
+            gameManager.sound_coin();
+            gameObject.SetActive(false);
+            gameManager.addCoins();
+        }
     }
 
 }

@@ -7,6 +7,8 @@ public class EnemyMovement : MonoBehaviour {
     public Transform Mace;
     public Rigidbody2D rb;
     public Vector2 velocidade;
+    public float MaxHeight;
+    public float MinHeight;
 
     GameManager gameManager;
 
@@ -18,10 +20,12 @@ public class EnemyMovement : MonoBehaviour {
     // Update is called once per frame
     void Update(){
       
-        if (Mace.position.y > -0.5){
+        if (Mace.position.y > MaxHeight)
+        {
             rb.velocity = -velocidade;
         }
-        else if (Mace.position.y <= -6.5){
+        else if (Mace.position.y <= MinHeight)
+        {
             rb.velocity = velocidade;
         }
     }

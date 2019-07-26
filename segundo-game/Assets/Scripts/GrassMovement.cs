@@ -12,6 +12,8 @@ public class GrassMovement : MonoBehaviour{
     public float maxY;
     public float minY;
 
+    bool bossSound = false;
+
     // Start is called before the first frame update
     void Start(){
         
@@ -38,4 +40,13 @@ public class GrassMovement : MonoBehaviour{
         }
 
     }
+
+    public void OnCollisionEnter2D(Collision2D collision){
+        if (collision.collider.tag == "Player" && !bossSound){
+            bossSound = true;
+            FindObjectOfType<GameManager>().sound_boss();
+        }
+        
+    }
+
 }

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour{
     GameObject audioEffect_gameover;
     GameObject audioEffect_background;
     GameObject audioEffect_chest;
+    GameObject audioEffect_boss;
     GameObject player;
 
 
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour{
         audioEffect_gameover = GameObject.Find("GameOverSound");
         audioEffect_background = GameObject.Find("BackgroundSound");
         audioEffect_chest = GameObject.Find("ChestSound");
+        audioEffect_boss = GameObject.Find("BossSound");
         player = GameObject.Find("Player");
     }
 
@@ -46,11 +48,17 @@ public class GameManager : MonoBehaviour{
         audioEffect_chest.GetComponent<AudioSource>().Play();
     }
 
+    public void sound_boss(){
+        audioEffect_background.GetComponent<AudioSource>().Stop();
+        audioEffect_boss.GetComponent<AudioSource>().Play();
+    }
+
     public void gameOver(){
         if (gameover == false) {
             gameover = true;
             Debug.Log("GameOver");
             audioEffect_background.GetComponent<AudioSource>().Stop();
+            audioEffect_boss.GetComponent<AudioSource>().Stop();
             audioEffect_gameover.GetComponent<AudioSource>().Play();
             player.GetComponent<CircleCollider2D>().enabled = false;
             Invoke("Restart", restartdelay);

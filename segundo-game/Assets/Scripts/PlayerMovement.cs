@@ -43,14 +43,6 @@ public class PlayerMovement : MonoBehaviour{
             gameManager.gameOver();
         }
 
-        if ((Input.GetKey("e")) && (GameObject.Find("Chest").GetComponent<Collider2D>().CompareTag("Player"))) {
-            Debug.Log("HERREE");
-            GameObject.Find("Chest").GetComponent<Animator>().Play("Entry");
-            gameManager.sound_chest();
-
-        }
-
-
     }
     
     void FixedUpdate(){
@@ -90,5 +82,13 @@ public class PlayerMovement : MonoBehaviour{
 
     }
 
+
+    private void OnTriggerStay2D(Collider2D collision){
+        if (Input.GetKey("e")){
+            GameObject.Find("Chest").GetComponent<Animator>().enabled = true;
+            GameObject.Find("Chest").GetComponent<Animator>().Play("Chest");
+            gameManager.sound_chest();
+        }
+    }
 
 }

@@ -43,6 +43,14 @@ public class PlayerMovement : MonoBehaviour{
             gameManager.gameOver();
         }
 
+        if ((Input.GetKey("e")) && (GameObject.Find("Chest").GetComponent<Collider2D>().CompareTag("Player"))) {
+            Debug.Log("HERREE");
+            GameObject.Find("Chest").GetComponent<Animator>().Play("Entry");
+            gameManager.sound_chest();
+
+        }
+
+
     }
     
     void FixedUpdate(){

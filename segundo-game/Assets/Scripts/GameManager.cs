@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour{
     GameObject audioEffect_coin;
     GameObject audioEffect_gameover;
     GameObject audioEffect_background;
+    GameObject audioEffect_chest;
+    GameObject player;
+
 
     int coins = 0;
     bool gameover = false;
@@ -22,6 +25,8 @@ public class GameManager : MonoBehaviour{
         audioEffect_coin = GameObject.Find("CoinSound");
         audioEffect_gameover = GameObject.Find("GameOverSound");
         audioEffect_background = GameObject.Find("BackgroundSound");
+        audioEffect_chest = GameObject.Find("ChestSound");
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -36,12 +41,18 @@ public class GameManager : MonoBehaviour{
     public void sound_coin(){
         audioEffect_coin.GetComponent<AudioSource>().Play();
     }
+
+    public void sound_chest(){
+        audioEffect_chest.GetComponent<AudioSource>().Play();
+    }
+
     public void gameOver(){
-        if (gameover == false){
+        if (gameover == false) {
             gameover = true;
             Debug.Log("GameOver");
             audioEffect_background.GetComponent<AudioSource>().Stop();
             audioEffect_gameover.GetComponent<AudioSource>().Play();
+            player.GetComponent<CircleCollider2D>().enabled = false;
             Invoke("Restart", restartdelay);
         }
     }

@@ -13,12 +13,14 @@ public class GameManager : MonoBehaviour{
     GameObject audioEffect_background;
     GameObject audioEffect_chest;
     GameObject audioEffect_boss;
+    GameObject audioEffect_zombieBoss;
     GameObject player;
     GameObject ZombieBoss;
 
 
     int coins = 0;
     bool gameover = false;
+    bool bossZone = false;
     bool checkpoint = false;
     Vector2 checkpoint_position;
 
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour{
         audioEffect_background = GameObject.Find("BackgroundSound");
         audioEffect_chest = GameObject.Find("ChestSound");
         audioEffect_boss = GameObject.Find("BossSound");
+        audioEffect_zombieBoss = GameObject.Find("ZombieBossSound");
         player = GameObject.Find("Player");
         ZombieBoss = GameObject.Find("ZombieBoss");
     }
@@ -56,6 +59,10 @@ public class GameManager : MonoBehaviour{
         audioEffect_boss.GetComponent<AudioSource>().Play();
     }
 
+    public void sound_zombieBoss() { 
+        audioEffect_zombieBoss.GetComponent<AudioSource>().Play();
+    }
+
     public void GameOver(){
         if (gameover == false) {
             gameover = true;
@@ -66,7 +73,7 @@ public class GameManager : MonoBehaviour{
             audioEffect_gameover.GetComponent<AudioSource>().Play();
             player.GetComponent<CircleCollider2D>().enabled = false;
             if (checkpoint){
-                Invoke("Restart_Checkpoint", restartdelay);
+                Invoke("Restart_Checkpoint", 1.5f);
             }else{
                 Invoke("Restart", restartdelay);
             }
@@ -77,8 +84,16 @@ public class GameManager : MonoBehaviour{
         coins++;
     }
 
+    public void Set_bossZone(bool bossZone){
+        this.bossZone = bossZone;
+    }
+
+    public bool Get_bossZone(){
+        return bossZone;
+    }
+
     void Restart(){
-        Debug.Log("Restar");
+        Debug.Log("Restart");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -89,14 +104,28 @@ public class GameManager : MonoBehaviour{
 
    void Restart_Checkpoint(){
         Debug.Log("Restar_CheckPoint");
+        //Restart GameManager
         gameover = false;
         FindObjectOfType<GrassMovement>().Set_bossSound(false);
+        audioEffect_background.GetComponent<AudioSource>().Play();
+
+        //Restart Player
         player.GetComponent<Animator>().SetBool("GameOver", false);
         player.GetComponent<CircleCollider2D>().enabled = true;
-        audioEffect_background.GetComponent<AudioSource>().Play();
         player.GetComponent<Transform>().position = checkpoint_position;
 
         //Restart ZombieBoss
+        bossZone = false;
+        ZombieBoss.GetComponent<Transform>().position = new Vector3(91.39f, -3.78f, 0f);
+        ZombieBoss.GetComponent<BossMovement>().life = 100;
+        ZombieBoss.GetComponent<BossMovement>().gameover = false;
+        ZombieBoss.GetComponent<Animator>().SetBool("Attack", false);
+        ZombieBoss.GetComponent<Animator>().SetBool("Die", false);
+        ZombieBoss.GetComponent<Animator>().SetFloat("Speed", 0f);
+    }
+
+   public void Win()
+    {
 
     }
 

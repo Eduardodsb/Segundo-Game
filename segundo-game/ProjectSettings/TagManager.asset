@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - Enemy
   - Chest
+  - BossControl
+  - GroundCheck
   layers:
   - Default
   - TransparentFX

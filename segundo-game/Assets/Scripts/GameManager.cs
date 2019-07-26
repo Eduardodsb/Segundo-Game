@@ -14,11 +14,13 @@ public class GameManager : MonoBehaviour{
     GameObject audioEffect_chest;
     GameObject audioEffect_boss;
     GameObject player;
+    GameObject ZombieBoss;
 
 
     int coins = 0;
     bool gameover = false;
-
+    bool checkpoint = false;
+    Vector2 checkpoint_position;
 
     // Start is called before the first frame update
     void Start(){
@@ -29,11 +31,12 @@ public class GameManager : MonoBehaviour{
         audioEffect_chest = GameObject.Find("ChestSound");
         audioEffect_boss = GameObject.Find("BossSound");
         player = GameObject.Find("Player");
+        ZombieBoss = GameObject.Find("ZombieBoss");
     }
 
     // Update is called once per frame
     void Update(){
-        
+
     }
 
     public void sound_jump(){
@@ -53,24 +56,48 @@ public class GameManager : MonoBehaviour{
         audioEffect_boss.GetComponent<AudioSource>().Play();
     }
 
-    public void gameOver(){
+    public void GameOver(){
         if (gameover == false) {
             gameover = true;
             Debug.Log("GameOver");
+            player.GetComponent<Animator>().SetBool("GameOver", true);
             audioEffect_background.GetComponent<AudioSource>().Stop();
             audioEffect_boss.GetComponent<AudioSource>().Stop();
             audioEffect_gameover.GetComponent<AudioSource>().Play();
             player.GetComponent<CircleCollider2D>().enabled = false;
-            Invoke("Restart", restartdelay);
+            if (checkpoint){
+                Invoke("Restart_Checkpoint", restartdelay);
+            }else{
+                Invoke("Restart", restartdelay);
+            }
         }
     }
 
-    public void addCoins(){
+    public void AddCoins(){
         coins++;
     }
 
     void Restart(){
+        Debug.Log("Restar");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+   public void CheckpointSave(Vector2 position){
+        checkpoint = true;
+        checkpoint_position = position;
+    }
+
+   void Restart_Checkpoint(){
+        Debug.Log("Restar_CheckPoint");
+        gameover = false;
+        FindObjectOfType<GrassMovement>().Set_bossSound(false);
+        player.GetComponent<Animator>().SetBool("GameOver", false);
+        player.GetComponent<CircleCollider2D>().enabled = true;
+        audioEffect_background.GetComponent<AudioSource>().Play();
+        player.GetComponent<Transform>().position = checkpoint_position;
+
+        //Restart ZombieBoss
+
     }
 
 }

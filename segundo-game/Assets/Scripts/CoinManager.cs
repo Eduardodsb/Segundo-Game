@@ -20,7 +20,7 @@ public class CoinManager : MonoBehaviour{
         if (collision.CompareTag("Player")) {
             gameManager.sound_coin();
             gameObject.SetActive(false);
-            gameManager.addCoins();
+            gameManager.AddCoins();
         }
     }
 

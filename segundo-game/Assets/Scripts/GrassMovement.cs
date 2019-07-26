@@ -49,4 +49,8 @@ public class GrassMovement : MonoBehaviour{
         
     }
 
+    public void Set_bossSound(bool bossSound){
+        this.bossSound = bossSound;
+    }
+
 }

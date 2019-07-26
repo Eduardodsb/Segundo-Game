@@ -39,8 +39,7 @@ public class PlayerMovement : MonoBehaviour{
         }
 
         if (rb.position.y < -9.0){
-            animator.SetBool("GameOver", true);
-            gameManager.gameOver();
+            gameManager.GameOver();
         }
 
     }
@@ -69,8 +68,7 @@ public class PlayerMovement : MonoBehaviour{
         }
 
         if (collision.collider.tag == "Enemy"){
-            animator.SetBool("GameOver", true);
-            gameManager.gameOver();
+            gameManager.GameOver();
         }
 
     }
@@ -88,6 +86,8 @@ public class PlayerMovement : MonoBehaviour{
             GameObject.Find("Chest").GetComponent<Animator>().enabled = true;
             GameObject.Find("Chest").GetComponent<Animator>().Play("Chest");
             gameManager.sound_chest();
+
+            gameManager.CheckpointSave(gameObject.GetComponent<Transform>().position);
         }
     }
 

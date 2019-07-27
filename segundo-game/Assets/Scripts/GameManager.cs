@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour{
     GameObject audioEffect_chest;
     GameObject audioEffect_boss;
     GameObject audioEffect_zombieBoss;
+    GameObject audioEffect_victory;
     GameObject player;
     GameObject ZombieBoss;
 
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour{
         audioEffect_chest = GameObject.Find("ChestSound");
         audioEffect_boss = GameObject.Find("BossSound");
         audioEffect_zombieBoss = GameObject.Find("ZombieBossSound");
+        audioEffect_victory = GameObject.Find("VictorySound");
         player = GameObject.Find("Player");
         ZombieBoss = GameObject.Find("ZombieBoss");
     }
@@ -124,9 +126,14 @@ public class GameManager : MonoBehaviour{
         ZombieBoss.GetComponent<Animator>().SetFloat("Speed", 0f);
     }
 
-   public void Win()
-    {
+   public void Win(){
+        audioEffect_boss.GetComponent<AudioSource>().Stop();
+        audioEffect_victory.GetComponent<AudioSource>().Play();
+        Invoke("Next_Level", 5f);
+    }
 
+    void Next_Level() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
 }

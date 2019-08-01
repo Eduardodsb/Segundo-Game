@@ -9,3 +9,5 @@ Barra: Pular <br>
 E: Interagir com o Baú <br>
 
 OBS: para derrotar o boss é necessário pular 10 vezes na cabeça do mesmo. 
+
+Para Experimentar o game acesse: https://eduardodsb.github.io/Segundo-Game/WebGL/index.html
